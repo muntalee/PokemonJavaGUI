@@ -1,14 +1,8 @@
 import java.awt.*;
-import java.awt.image.*;
-import javax.imageio.*;
-import java.awt.event.*;
-import java.io.*;
 import java.util.*;
-
 import javax.swing.*;
-import javax.swing.border.AbstractBorder;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+
 public class Pokedex {
   private ArrayList<Pokemon> pokedex;
   public Pokedex() {

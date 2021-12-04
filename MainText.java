@@ -85,5 +85,6 @@ public class MainText {
     // p2.addPokemon(pokedex.getPokemon("Squirtle"));
     Battle battle = new Battle(p1, p2);
     battle.startBattle(p1.getBackpack().get(0), p2.getBackpack().get(0));
+    in.close();
   }
 }

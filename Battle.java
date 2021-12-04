@@ -43,6 +43,7 @@ public class Battle {
         newPokemon = player2.throwOut(whichPokemon);
       }
     }
+    in.close();
     startBattle(pW, newPokemon);
   }
 
@@ -191,6 +192,7 @@ public class Battle {
         }
         items.useItem(selectedPokemon, selectedItem);
       }
+      in.close();
       System.out.println();
     }
   }
