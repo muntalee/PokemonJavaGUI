@@ -13,6 +13,10 @@ public class Attack {
     this.power = power;
   }
 
+  public int getAccuracy() {
+    return accuracy;
+  }
+
   public int getPp() {
     return remainingPP;
   }

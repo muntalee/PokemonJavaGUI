@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Pokemon {
 	private String name;
@@ -77,18 +78,27 @@ public class Pokemon {
   }
 
   public void attack (Pokemon p, Attack attack) {
-    if (attack.getPp() <= 0) {
-      System.out.println("You don't have any pp!");
-      return;
+    Random rand = new Random();
+    int chance = rand.nextInt(101);
+    // if chance = 20 and accuracy is 90, then 100 - 90 = 10, 20 >= 10, so do attack
+    // if chance = 5 and accuracy is 90, then 100 - 90 = 10, and 5 !>= 10, so don't do attack
+    if (chance >= 100 - attack.getAccuracy()) {
+      if (attack.getPp() <= 0) {
+        System.out.println("You don't have any pp!");
+        return;
+      }
+      double dmgAgainstPokemon = attack.getPower() / ((this.damage/p.getDefense()) + 5);
+      double newHealth = Math.ceil((double)p.getHealth() - dmgAgainstPokemon);
+      System.out.println(name + " dealt " + dmgAgainstPokemon);
+      p.setHealth((int)newHealth);
+      if (p.getHealth() <= 0) {
+        p.setHealth(0);
+      }
+      attack.decreasePP();
     }
-    double dmgAgainstPokemon = attack.getPower() / ((this.damage/p.getDefense()) + 5);
-    double newHealth = Math.ceil((double)p.getHealth() - dmgAgainstPokemon);
-    System.out.println(name + " dealt " + dmgAgainstPokemon);
-    p.setHealth((int)newHealth);
-    if (p.getHealth() <= 0) {
-      p.setHealth(0);
+    else {
+      System.out.println(name + "'s attack missed!");
     }
-    attack.decreasePP();
   }
 
   public String displayHealth() {

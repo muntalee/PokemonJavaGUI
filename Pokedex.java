@@ -1,4 +1,14 @@
+import java.awt.*;
+import java.awt.image.*;
+import javax.imageio.*;
+import java.awt.event.*;
+import java.io.*;
 import java.util.*;
+
+import javax.swing.*;
+import javax.swing.border.AbstractBorder;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 public class Pokedex {
   private ArrayList<Pokemon> pokedex;
   public Pokedex() {
@@ -15,6 +25,8 @@ public class Pokedex {
     Attack nuzzle = new Attack("Nuzzle", 20, 20, 100);
     Attack feint = new Attack("Feint", 10, 30, 100);
     Attack spark = new Attack("Spark", 20, 64, 100);
+    Attack pound = new Attack("Pound", 35, 40, 100);
+    Attack covet = new Attack("Covet", 25, 60, 100);
 
     /* LIST OF ALL POKEMON*/
 
@@ -62,6 +74,15 @@ public class Pokedex {
     eeveeAttack.add(doubleEdge);
     eevee.addMoveSet(eeveeAttack);
     pokedex.add(eevee);
+
+    // Jigglypuff
+    Pokemon jigglypuff = new Pokemon("Jiggly", "Normal", 70, 45, 20);
+    ArrayList<Attack> jigglyAttack = new ArrayList<Attack>();
+    jigglyAttack.add(pound);
+    jigglyAttack.add(covet);
+    jigglyAttack.add(doubleEdge);
+    jigglypuff.addMoveSet(eeveeAttack);
+    pokedex.add(jigglypuff);
   }
 
   public Pokemon getPokemonByIndex(int n) {
@@ -77,10 +98,54 @@ public class Pokedex {
     return null;
   }
 
+  public ArrayList<Pokemon> getPokedex() {
+    return pokedex;
+  }
+
+  public ArrayList<JPanel> getPokemonLabels() {
+    ArrayList<JLabel> pokemonLabels = new ArrayList<JLabel>();
+    ArrayList<JPanel> pokemonPanels = new ArrayList<JPanel>();
+    Font font = new Font("PKMN RBYGSC", Font.PLAIN, 30);
+    for (int i = 0; i < pokedex.size(); i++) {
+      JLabel pokeJLabel = new JLabel(pokedex.get(i).getName());
+      pokeJLabel.setHorizontalAlignment(JLabel.CENTER);
+      pokeJLabel.setForeground(Color.black);
+      pokeJLabel.setFont(font);
+      pokeJLabel.setVisible(true);
+      pokemonLabels.add(pokeJLabel);
+    }
+    int x = 82, y = 150;
+    for (int i = 0; i < pokemonLabels.size(); i++) {
+      JPanel pokeJPanel = new JPanel();
+      pokeJPanel.setLayout(new GridBagLayout());
+      pokeJPanel.setBounds(x,y, 296, 116);
+      LineBorder line = new LineBorder(Color.black, 5, true);
+      pokeJPanel.setBorder(line);
+      pokeJPanel.setBackground(Color.white);
+      if (y == 460) {
+        x = 412;
+        y = 150;
+      }
+      else {
+        y += 155;
+      }
+      pokeJPanel.add(pokemonLabels.get(i));
+      pokeJPanel.setVisible(true);
+      pokemonPanels.add(pokeJPanel);
+    }
+    return pokemonPanels;
+  }
+
+  // public Pokemon getPokemonByJPanel(JPanel p, Container con) {
+  //   for (int i = 0; i < pokedex.size(); i++) {
+  //     if (con.getName())
+  //   }
+
+  // }
+
   public void printPokedex() {
     for (int i = 0; i < pokedex.size(); i++) {
       System.out.println(pokedex.get(i).displayHealth());
     }
   }
-
 }
