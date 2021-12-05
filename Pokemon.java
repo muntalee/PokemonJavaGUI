@@ -106,6 +106,6 @@ public class Pokemon {
   }
 
 	public String toString() {
-		return name + " (" + type + ")\t" + health + "/" + maxHealth + "hp\nDMG: " + damage + "\nDEF: " + defense + "\n"; 
+		return name + "\t(" + type + ")\t" + health + "/" + maxHealth + "hp\tDMG: " + damage + "\tDEF: " + defense; 
 	}
 }

@@ -112,7 +112,7 @@ public class Battle {
             attack = in.next();
             newAttack = p2.getAttack(attack);
           }
-          p2.attack(p1, p2.getAttack(attack));
+          p2.attack(p1, newAttack);
           isPlayer1Turn = true;
         }
       } else if (option.toLowerCase().equals("pokemon")) {

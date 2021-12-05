@@ -70,7 +70,7 @@ public class Pokedex {
     pokedex.add(eevee);
 
     // Jigglypuff
-    Pokemon jigglypuff = new Pokemon("Jiggly", "Normal", 70, 45, 20);
+    Pokemon jigglypuff = new Pokemon("Jigglypuff", "Normal", 70, 45, 20);
     ArrayList<Attack> jigglyAttack = new ArrayList<Attack>();
     jigglyAttack.add(pound);
     jigglyAttack.add(covet);
