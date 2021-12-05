@@ -3,4 +3,4 @@
 ## Instructions
 1. Install the file ```INSTALL_THIS_FONT.ttf```
 2. Run ```MainMenu.java``` on VSCode
-  - Otherwise, compile all the files to ```.class``` files and run ```MainMenu.java```
+      - Otherwise, compile all the files to ```.class``` files and run ```MainMenu.java```
