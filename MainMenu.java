@@ -42,7 +42,7 @@ public class MainMenu extends JFrame {
       }
     });
   }
- 
+
 
   // Main Method to start code
   public static void main(String[] args) {
