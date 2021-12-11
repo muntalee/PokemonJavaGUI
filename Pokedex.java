@@ -1,6 +1,10 @@
 import java.awt.*;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class Pokedex {
@@ -110,22 +114,29 @@ public class Pokedex {
   }
 
   public JLabel newPlayerNameDisplay(String name, int x, int y, int width, int height) {
-    JLabel playerButton = new JLabel(name);
-    playerButton.setBounds(x,y,width,height);
-    playerButton.setFont(font);
-    playerButton.setOpaque(false);
-    playerButton.setForeground(Color.black);
-    playerButton.setVisible(true);
-    return playerButton;
+    JLabel playerLabel = new JLabel(name);
+    playerLabel.setBounds(x,y,width,height);
+    playerLabel.setFont(font);
+    playerLabel.setOpaque(false);
+    playerLabel.setForeground(Color.black);
+    playerLabel.setVisible(true);
+    return playerLabel;
   }
 
-  public JPanel newSelectionPanel(Player p, Main m) {
-    JPanel selection = new JPanel();
+  public JLayeredPane newSelectionPanel(Player p, Main m) {
+    JLayeredPane selection = new JLayeredPane();
     selection.setBounds(0,0, WIDTH_PANEL, HEIGHT_PANEL);
+    selection.setBackground(Color.white);
     selection.setLayout(null);
+
+    // Background
+    JLabel wp = new JLabel(new ImageIcon("assets/ui/pokemon_selection.png"));
+    wp.setBounds(0,0, WIDTH_PANEL, HEIGHT_PANEL);
+    selection.add(wp, Integer.valueOf(0));
+
     // Player name on Top
     JLabel playerName = newPlayerNameDisplay(p.getName(), 320, 35, 296, 116);
-    selection.add(playerName);
+    selection.add(playerName, Integer.valueOf(1));
 
     // 1. PIKACHU
     JButton pikachuButton = newPokemonButton("Pikachu", 82, 150, 296, 116);
@@ -139,19 +150,20 @@ public class Pokedex {
           selection.setVisible(false);
           if (p.getName().equals("Player 1")) {
             Pokedex pokedex = new Pokedex();
-            JPanel newPanel = pokedex.newSelectionPanel(m.getPlayer2(), m);
-            System.out.println(p.getName());
-            p.printBackpack();
+            JLayeredPane newPanel = pokedex.newSelectionPanel(m.getPlayer2(), m);                           
             m.addNewPanel(newPanel);
           }
           else {
-            System.out.println(p.getName());
-            p.printBackpack();
+            try {
+              m.startBattle();
+            } catch (IOException e1) {
+              e1.printStackTrace();
+            }
           }
         }
       } 
     });
-    selection.add(pikachuButton);
+    selection.add(pikachuButton, Integer.valueOf(2));
 
     // 2. BULBASAUR
     JButton bulbasaurButton = newPokemonButton("Bulbasaur", 82, 305, 296, 116);
@@ -165,19 +177,20 @@ public class Pokedex {
           selection.setVisible(false);
           if (p.getName().equals("Player 1")) {
             Pokedex pokedex = new Pokedex();
-            JPanel newPanel = pokedex.newSelectionPanel(m.getPlayer2(), m);
-            System.out.println(p.getName());
-            p.printBackpack();
+            JLayeredPane newPanel = pokedex.newSelectionPanel(m.getPlayer2(), m);
             m.addNewPanel(newPanel);
           }
           else {
-            System.out.println(p.getName());
-            p.printBackpack();
+            try {
+              m.startBattle();
+            } catch (IOException e1) {
+              e1.printStackTrace();
+            }
           }
         }
       } 
     });
-    selection.add(bulbasaurButton);
+    selection.add(bulbasaurButton, Integer.valueOf(3));
 
     // 3. SQUIRTLE
     JButton squirtleButton = newPokemonButton("Squirtle", 82, 460, 296, 116);
@@ -191,19 +204,20 @@ public class Pokedex {
           selection.setVisible(false);
           if (p.getName().equals("Player 1")) {
             Pokedex pokedex = new Pokedex();
-            JPanel newPanel = pokedex.newSelectionPanel(m.getPlayer2(), m);
-            System.out.println(p.getName());
-            p.printBackpack();
+            JLayeredPane newPanel = pokedex.newSelectionPanel(m.getPlayer2(), m);
             m.addNewPanel(newPanel);
           }
           else {
-            System.out.println(p.getName());
-            p.printBackpack();
+            try {
+              m.startBattle();
+            } catch (IOException e1) {
+              e1.printStackTrace();
+            }
           }
         }
       } 
     });
-    selection.add(squirtleButton);
+    selection.add(squirtleButton, Integer.valueOf(4));
 
     // 4. CHARMANDER
     JButton charmanderButton = newPokemonButton("Charmander", 412, 150, 296, 116);
@@ -217,19 +231,20 @@ public class Pokedex {
           selection.setVisible(false);
           if (p.getName().equals("Player 1")) {
             Pokedex pokedex = new Pokedex();
-            JPanel newPanel = pokedex.newSelectionPanel(m.getPlayer2(), m);
-            System.out.println(p.getName());
-            p.printBackpack();
+            JLayeredPane newPanel = pokedex.newSelectionPanel(m.getPlayer2(), m);
             m.addNewPanel(newPanel);
           }
           else {
-            System.out.println(p.getName());
-            p.printBackpack();
+            try {
+              m.startBattle();
+            } catch (IOException e1) {
+              e1.printStackTrace();
+            }
           }
         }
       } 
     });
-    selection.add(charmanderButton);
+    selection.add(charmanderButton, Integer.valueOf(5));
 
     // 5. EEVEE
     JButton eeveeButton = newPokemonButton("Eevee", 412, 305, 296, 116);
@@ -243,20 +258,20 @@ public class Pokedex {
           selection.setVisible(false);
           if (p.getName().equals("Player 1")) {
             Pokedex pokedex = new Pokedex();
-            JPanel newPanel = pokedex.newSelectionPanel(m.getPlayer2(), m);
-            System.out.println(p.getName());
-            p.printBackpack();
+            JLayeredPane newPanel = pokedex.newSelectionPanel(m.getPlayer2(), m);
             m.addNewPanel(newPanel);
           }
-
           else {
-            System.out.println(p.getName());
-            p.printBackpack();
+            try {
+              m.startBattle();
+            } catch (IOException e1) {
+              e1.printStackTrace();
+            }
           }
         }
       } 
     });
-    selection.add(eeveeButton);
+    selection.add(eeveeButton, Integer.valueOf(6));
 
     // 6. JIGGLYPUFF
     JButton jigglypuffButton = newPokemonButton("Jigglypuff", 412, 460, 296, 116);
@@ -270,19 +285,20 @@ public class Pokedex {
           selection.setVisible(false);
           if (p.getName().equals("Player 1")) {
             Pokedex pokedex = new Pokedex();
-            JPanel newPanel = pokedex.newSelectionPanel(m.getPlayer2(), m);
-            System.out.println(p.getName());
-            p.printBackpack();
+            JLayeredPane newPanel = pokedex.newSelectionPanel(m.getPlayer2(), m);
             m.addNewPanel(newPanel);
           }
           else {
-            System.out.println(p.getName());
-            p.printBackpack();
+            try {
+              m.startBattle();
+            } catch (IOException e1) {
+              e1.printStackTrace();
+            }
           }
         }
       } 
     });
-    selection.add(jigglypuffButton);
+    selection.add(jigglypuffButton, Integer.valueOf(7));
     selection.setVisible(true);
     return selection;
   }

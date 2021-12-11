@@ -50,7 +50,7 @@ public class Player {
     String finals = "";
     finals += name + "'s Pokemons:\n";
     for (int i = 0; i < backpack.size(); i++) {
-      finals += backpack.get(i);
+      finals += backpack.get(i) + "\n";
     }
     return finals;
   }

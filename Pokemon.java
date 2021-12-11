@@ -26,6 +26,10 @@ public class Pokemon {
 		return name;
 	}
 
+  public String getHealthBattle() {
+    return health + "/" + maxHealth;
+  }
+
   public void reviving() {
     this.health = maxHealth;
     for (int i = 0; i < attack.size(); i++) {
