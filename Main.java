@@ -95,7 +95,7 @@ public class Main {
     // Brackets
     JLabel bracketLabel = new JLabel(new ImageIcon("assets/ui/name_bracket.png"));
     bracketLabel.setBounds(0,0, WIDTH_PANEL, HEIGHT_PANEL);
-    menuPanel.add(bracketLabel, Integer.valueOf(layerPos));
+    menuPanel.add(bracketLabel, Integer.valueOf(Integer.valueOf(layerPos)));
     layerPos++;
 
     // Menu
@@ -119,36 +119,56 @@ public class Main {
     layerPos++;
 
     // Player 1 Pokemon Name and Health
-    JLabel p1PokemonName = new JLabel(p1Pokemon.getName());
-    p1PokemonName.setFont(font);
-    p1PokemonName.setBounds(410,355,350,50);
-    p1PokemonName.setForeground(Color.black);
-    JLabel p1PokemonHealth = new JLabel(p1Pokemon.getHealthBattle());
-    p1PokemonHealth.setFont(font);
-    p1PokemonHealth.setBounds(410,400,350,50);
-    p1PokemonHealth.setForeground(Color.black);
-    menuPanel.add(p1PokemonName, layerPos);
+    JLabel p1PokemonName = newText(p1Pokemon.getName(), 410, 355, 350, 50);
+    JLabel p1PokemonHealth = newText(p1Pokemon.getHealthBattle(), 410, 400, 350, 50);
+    menuPanel.add(p1PokemonName, Integer.valueOf(layerPos));
     layerPos++;
-    menuPanel.add(p1PokemonHealth, layerPos);
+    menuPanel.add(p1PokemonHealth, Integer.valueOf(layerPos));
     layerPos++;
-
 
     // Player 2 Pokemon Name and Health
-    JLabel p2PokemonName = new JLabel(p2Pokemon.getName());
-    p2PokemonName.setFont(font);
-    p2PokemonName.setBounds(75,45,350,50);
-    p2PokemonName.setForeground(Color.black);
-    JLabel p2PokemonHealth = new JLabel(p2Pokemon.getHealthBattle());
-    p2PokemonHealth.setFont(font);
-    p2PokemonHealth.setBounds(75,90,350,50);
-    p2PokemonHealth.setForeground(Color.black);
-    menuPanel.add(p2PokemonName, layerPos);
+    JLabel p2PokemonName = newText(p2Pokemon.getName(), 75, 45, 350, 50);
+    JLabel p2PokemonHealth = newText(p2Pokemon.getHealthBattle(), 75, 90, 350, 50);
+    menuPanel.add(p2PokemonName, Integer.valueOf(layerPos));
     layerPos++;
-    menuPanel.add(p2PokemonHealth, layerPos);
+    menuPanel.add(p2PokemonHealth, Integer.valueOf(layerPos));
+    layerPos++;
+
+    // Buttons
+    JButton fightButton = newButton("FIGHT", 360, 510, 180, 40);
+    menuPanel.add(fightButton, Integer.valueOf(layerPos));
+    layerPos++;
+    JButton itemButton = newButton("ITEM", 360, 590, 180, 40);
+    menuPanel.add(itemButton, Integer.valueOf(layerPos));
+    layerPos++;
+    JButton pkmnButton = newButton("PKMN", 580, 510, 180, 40);
+    menuPanel.add(pkmnButton, Integer.valueOf(layerPos));
+    layerPos++;
+    JButton runButton = newButton("RUN", 580, 590, 180, 40);
+    menuPanel.add(runButton, Integer.valueOf(layerPos));
     layerPos++;
 
     return menuPanel;
   }
 
+  public JLabel newText(String text, int x, int y, int width, int height) {
+    JLabel label = new JLabel(text);
+    label.setFont(font);
+    label.setBounds(x,y,width, height);
+    label.setForeground(Color.black);
+    return label;
+  }
+
+  public JButton newButton(String text, int x, int y, int width, int height) {
+    JButton button = new JButton(text);
+    button.setFont(font);
+    button.setBounds(x,y,width, height);
+    button.setOpaque(false);
+    button.setContentAreaFilled(false);
+    button.setBorderPainted(false);
+    button.setVisible(true);
+    button.setForeground(Color.black);
+    return button;
+  }
 }
   

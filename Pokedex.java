@@ -1,10 +1,7 @@
 import java.awt.*;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Pokedex {
