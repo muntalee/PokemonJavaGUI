@@ -14,7 +14,7 @@ public class Main {
   final int HEIGHT_PANEL = 700;
   final int POKE_OPP_DIM = 240;
   final int POKE_PLA_DIM = 256;
-  Font font = new Font("PKMN RBYGSC", Font.PLAIN, 28);
+  Font font;
   public static void main(String[] args) {
     new Main(true);
   }
@@ -28,6 +28,11 @@ public class Main {
   }
 
   public Main(boolean ex) {
+
+    try {
+      font = Font.createFont(Font.TRUETYPE_FONT, new File("assets/font.ttf")).deriveFont(28f);
+    } catch (IOException | FontFormatException e) {}
+
     if (ex == true) {
       try {
         startGame();

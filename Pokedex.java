@@ -6,10 +6,15 @@ import java.util.*;
 
 public class Pokedex {
   private ArrayList<Pokemon> pokedex;
-  Font font = new Font("PKMN RBYGSC", Font.PLAIN, 28);
+  Font font;
   final int WIDTH_PANEL = 800;
   final int HEIGHT_PANEL = 700;
   public Pokedex() {
+
+    try {
+      font = Font.createFont(Font.TRUETYPE_FONT, new File("assets/font.ttf")).deriveFont(28f);
+    } catch (IOException | FontFormatException e) {}
+
     pokedex = new ArrayList<Pokemon>();
     // bunch of attacks
     Attack tackle = new Attack("Tackle", 35, 40, 100);
