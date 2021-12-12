@@ -21,6 +21,10 @@ public class Attack {
     return remainingPP;
   }
 
+  public String getPPBattle() {
+    return remainingPP + "/" + pp;
+  }
+
   public int getMaxPp() {
     return pp;
   }
