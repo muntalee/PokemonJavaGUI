@@ -101,9 +101,14 @@ public class Pokemon {
         p.setHealth(0);
       }
       attack.decreasePP();
+      System.out.println("Attacker's health: " + health + " Enemy's health: " + p.getHealth());
       return name + " dealt " + dmgAgainstPokemon + "!";
     }
     return name + "'s attack missed!";
+  }
+
+  public String getNameBattle() {
+    return name + " (" + health + "/" + maxHealth + ")";
   }
 
   public String displayHealth() {

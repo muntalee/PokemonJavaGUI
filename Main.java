@@ -83,13 +83,13 @@ public class Main {
   JLayeredPane startNewBattle;
 
   public void startBattle() throws IOException {
-    System.out.println(this.p1);
-    System.out.println(this.p2);
-    startNewBattle = mainBattleMenu(p1.getBackpack().get(0),p2.getBackpack().get(0));
+    startNewBattle = mainBattleMenu(p1.getBackpack().get(0),p2.getBackpack().get(0), p1, p2);
     con.add(startNewBattle);
   }
 
-  public JLayeredPane mainBattleMenu(Pokemon p1,Pokemon p2) throws IOException {
+  public JLayeredPane mainBattleMenu(Pokemon p1,Pokemon p2, Player ply1, Player ply2) throws IOException {
+    // Show who's turn it is with the window title
+    frame.setTitle(p1.getName() + "'s Turn");
     // Pokemons
     Pokemon p1Pokemon = p1;
     Pokemon p2Pokemon = p2;
@@ -158,7 +158,8 @@ public class Main {
     JButton runButton = newButton("RUN", 580, 590, 180, 40);
     menuPanel.add(runButton, Integer.valueOf(layerPos.size()-1));
     layerPos.add(i);
-    // Button Listener for Fight Button
+    
+    // Button Listener for Fight Button (Completed)
     fightButton.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent evt) {
         if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
@@ -249,7 +250,7 @@ public class Main {
                     public void mouseClicked(MouseEvent e2) {
                       try {
                         menuPanel.setVisible(false);
-                        JLayeredPane menu = mainBattleMenu(p2, p1);
+                        JLayeredPane menu = mainBattleMenu(p2, p1, ply2, ply1);
                         con.add(menu);
                       } catch (IOException e1) {
                         e1.printStackTrace();
@@ -293,7 +294,7 @@ public class Main {
                     public void mouseClicked(MouseEvent e2) {
                       try {
                         menuPanel.setVisible(false);
-                        JLayeredPane menu = mainBattleMenu(p2, p1);
+                        JLayeredPane menu = mainBattleMenu(p2, p1, ply2, ply1);
                         con.add(menu);
                       } catch (IOException e1) {
                         e1.printStackTrace();
@@ -338,7 +339,7 @@ public class Main {
                     public void mouseClicked(MouseEvent e2) {
                       try {
                         menuPanel.setVisible(false);
-                        JLayeredPane menu = mainBattleMenu(p2, p1);
+                        JLayeredPane menu = mainBattleMenu(p2, p1, ply2, ply1);
                         con.add(menu);
                       } catch (IOException e1) {
                         e1.printStackTrace();
@@ -352,35 +353,191 @@ public class Main {
         }
       } 
     });
-    itemButton.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent e) { 
-        fightButton.setVisible(false);
-        itemButton.setVisible(false);
-        pkmnButton.setVisible(false);
-        runButton.setVisible(false);
-        menuLabel.setIcon(new ImageIcon("assets/ui/attack_list.png"));
-        menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+    // Button Listener for Item Button
+    itemButton.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent evt) {
+        if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+          fightButton.setVisible(false);
+          itemButton.setVisible(false);
+          pkmnButton.setVisible(false);
+          runButton.setVisible(false);
+          menuLabel.setIcon(new ImageIcon("assets/ui/attack_list.png"));
+          menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+        }
       } 
     });
-    pkmnButton.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent e) { 
-        fightButton.setVisible(false);
-        itemButton.setVisible(false);
-        pkmnButton.setVisible(false);
-        runButton.setVisible(false);
-        menuLabel.setIcon(new ImageIcon("assets/ui/pokemon_selection_battle.png"));
-        menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+    // Button Listener for Pokemon Button 
+    pkmnButton.addMouseListener(new MouseAdapter() { 
+      public void mouseClicked(MouseEvent evt) { 
+        if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+          // Hidding all other buttons and changing menu
+          fightButton.setVisible(false);
+          itemButton.setVisible(false);
+          pkmnButton.setVisible(false);
+          runButton.setVisible(false);
+          menuLabel.setIcon(new ImageIcon("assets/ui/pokemon_selection_battle.png"));
+          menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+          layerPos.add(i);
+          // All Pokemon Buttons
+          JButton pokemonButton1 = newButton(ply1.getBackpack().get(0).getNameBattle(), 285, 200, 500, 40);
+          pokemonButton1.setHorizontalAlignment(SwingConstants.LEFT);
+          JButton pokemonButton2 = newButton(ply1.getBackpack().get(1).getNameBattle(), 285, 200+75, 500, 40);
+          pokemonButton2.setHorizontalAlignment(SwingConstants.LEFT);
+          JButton pokemonButton3 = newButton(ply1.getBackpack().get(2).getNameBattle(), 285, 200+75+75, 500, 40);
+          pokemonButton3.setHorizontalAlignment(SwingConstants.LEFT);
+          menuPanel.add(pokemonButton1, Integer.valueOf(layerPos.size()-1));
+          layerPos.add(i);
+          menuPanel.add(pokemonButton2, Integer.valueOf(layerPos.size()-1));
+          layerPos.add(i);
+          menuPanel.add(pokemonButton3, Integer.valueOf(layerPos.size()-1));
+          layerPos.add(i);
+          // Dialog text
+          JLabel msgLabel = newText("Select a Pokemon", 80, 550, 600, 40);
+          menuPanel.add(msgLabel, Integer.valueOf(layerPos.size()-1));
+          layerPos.add(i);
+          pokemonButton1.addMouseListener(new MouseAdapter(){
+            public void mouseClicked(MouseEvent e){
+              if (e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON1) {
+                msgLabel.setText(ply1.getBackpack().get(0).getName() + " is selected");
+                menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+              }
+              if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+                String newPokemonString = "assets/player/" + ply1.getBackpack().get(0).getName().toLowerCase() + ".png";
+                p1PokemonLabel.setIcon(new ImageIcon(newPokemonString));
+                p1PokemonHealth.setText(ply1.getBackpack().get(0).getHealthBattle());
+                p1PokemonName.setText(ply1.getBackpack().get(0).getName());
+                menuPanel.setLayer(p1PokemonLabel, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                menuPanel.setLayer(p1PokemonHealth, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                menuPanel.setLayer(p1PokemonName, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                pokemonButton1.setVisible(false);
+                pokemonButton2.setVisible(false);
+                pokemonButton3.setVisible(false);
+                layerPos.add(i);
+                menuLabel.setIcon(new ImageIcon("assets/ui/regular_menu.png"));
+                menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                msgLabel.setText("Go, " + ply1.getBackpack().get(0).getName() + "!");
+                menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                menuPanel.addMouseListener(new MouseAdapter() {
+                  public void mouseClicked(MouseEvent e2) {
+                    menuPanel.setVisible(false); 
+                    try {
+                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(0), ply1, ply2));
+                    } catch (IOException e) {
+                      e.printStackTrace();
+                    }
+                  }
+                });
+              }
+            }
+          });
+          pokemonButton2.addMouseListener(new MouseAdapter(){
+            public void mouseClicked(MouseEvent e){
+              if (e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON1) {
+                msgLabel.setText(ply1.getBackpack().get(1).getName() + " is selected");
+                menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+              }
+              if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+                String newPokemonString = "assets/player/" + ply1.getBackpack().get(1).getName().toLowerCase() + ".png";
+                p1PokemonLabel.setIcon(new ImageIcon(newPokemonString));
+                p1PokemonHealth.setText(ply1.getBackpack().get(1).getHealthBattle());
+                p1PokemonName.setText(ply1.getBackpack().get(1).getName());
+                menuPanel.setLayer(p1PokemonLabel, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                menuPanel.setLayer(p1PokemonHealth, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                menuPanel.setLayer(p1PokemonName, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                pokemonButton1.setVisible(false);
+                pokemonButton2.setVisible(false);
+                pokemonButton3.setVisible(false);
+                layerPos.add(i);
+                menuLabel.setIcon(new ImageIcon("assets/ui/regular_menu.png"));
+                menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                msgLabel.setText("Go, " + ply1.getBackpack().get(1).getName() + "!");
+                menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                menuPanel.addMouseListener(new MouseAdapter() {
+                  public void mouseClicked(MouseEvent e2) {
+                    menuPanel.setVisible(false); 
+                    try {
+                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(1), ply1, ply2));
+                    } catch (IOException e) {
+                      e.printStackTrace();
+                    }
+                  }
+                });
+              }
+            }
+          });
+          pokemonButton3.addMouseListener(new MouseAdapter(){
+            public void mouseClicked(MouseEvent e){
+              if (e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON1) {
+                msgLabel.setText(ply1.getBackpack().get(2).getName() + " is selected");
+                menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+              }
+              if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+                String newPokemonString = "assets/player/" + ply1.getBackpack().get(2).getName().toLowerCase() + ".png";
+                p1PokemonLabel.setIcon(new ImageIcon(newPokemonString));
+                p1PokemonHealth.setText(ply1.getBackpack().get(2).getHealthBattle());
+                p1PokemonName.setText(ply1.getBackpack().get(2).getName());
+                menuPanel.setLayer(p1PokemonLabel, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                menuPanel.setLayer(p1PokemonHealth, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                menuPanel.setLayer(p1PokemonName, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                pokemonButton1.setVisible(false);
+                pokemonButton2.setVisible(false);
+                pokemonButton3.setVisible(false);
+                layerPos.add(i);
+                menuLabel.setIcon(new ImageIcon("assets/ui/regular_menu.png"));
+                menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                msgLabel.setText("Go, " + ply1.getBackpack().get(2).getName() + "!");
+                menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                menuPanel.addMouseListener(new MouseAdapter() {
+                  public void mouseClicked(MouseEvent e2) {
+                    menuPanel.setVisible(false); 
+                    try {
+                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(2), ply1, ply2));
+                    } catch (IOException e) {
+                      e.printStackTrace();
+                    }
+                  }
+                });
+              }
+            }
+          });
+        }
       } 
     });
-    runButton.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent e) { 
-        fightButton.setVisible(false);
-        itemButton.setVisible(false);
-        pkmnButton.setVisible(false);
-        runButton.setVisible(false);
-        menuLabel.setIcon(new ImageIcon("assets/ui/regular_menu.png"));
-        menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
-
+    // Button Listener for Run Button (Completed)
+    runButton.addMouseListener(new MouseAdapter() { 
+      public void mouseClicked(MouseEvent evt) {
+        if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+          fightButton.setVisible(false);
+          itemButton.setVisible(false);
+          pkmnButton.setVisible(false);
+          runButton.setVisible(false);
+          menuLabel.setIcon(new ImageIcon("assets/ui/regular_menu.png"));
+          menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+          layerPos.add(i);
+          JLabel msgLabel = newText("You ran away!", 80, 550, 600, 40);
+          menuPanel.add(msgLabel, Integer.valueOf(layerPos.size()-1));
+          layerPos.add(i);
+          menuPanel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+              frame.dispose();
+            }
+          });
+        }
       } 
     });
 
