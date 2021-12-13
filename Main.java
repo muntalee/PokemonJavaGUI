@@ -788,7 +788,7 @@ public class Main {
                     try {
                       confirmNextRound(ply1, ply1.getBackpack().get(0));
                       confirmNextRound(ply2, p2);
-                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(ply1.getBackpack().size()-1), ply1, ply2));
+                      con.add(mainBattleMenu(p2, p1, ply1, ply2));
                     } catch (IOException e) {
                       e.printStackTrace();
                     }
@@ -830,7 +830,7 @@ public class Main {
                     try {
                       confirmNextRound(ply1, ply1.getBackpack().get(1));
                       confirmNextRound(ply2, p2);
-                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(ply1.getBackpack().size()-1), ply1, ply2));
+                      con.add(mainBattleMenu(p2, p1, ply1, ply2));
                     } catch (IOException e) {
                       e.printStackTrace();
                     }
@@ -872,7 +872,7 @@ public class Main {
                     try {
                       confirmNextRound(ply1, ply1.getBackpack().get(2));
                       confirmNextRound(ply2, p2);
-                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(ply1.getBackpack().size()-1), ply1, ply2));
+                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(2), ply1, ply2));
                     } catch (IOException e) {
                       e.printStackTrace();
                     }
