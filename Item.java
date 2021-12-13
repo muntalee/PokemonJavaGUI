@@ -1,48 +1,72 @@
 import java.util.*;
 public class Item {
   private int healValue;
-  public Item() { 
+  private int healCount;
+  private int healMax;
+  private boolean canRevive;
+  private Player p; 
+
+  public Item(Player p) {
+    this.p = p;
     healValue = 5;
+    healCount = 0;
+    healMax = 3;
+    canRevive = true;
   }
 
-  public void useHeal(Pokemon p) {
+  public Player getPlayer() {
+    return p; 
+  }
+
+  public String getCountHeal() {
+    return (3 - healCount) + "/" + healMax;
+  }
+
+  public String getReviveStatus() {
+    if (canRevive) {
+      return "1 revive available";
+    }
+    return "Cannot revive!";
+  }
+
+  public int getHealCountVariable() {
+    return healCount;
+  }
+
+  public String useHeal(Pokemon p) {
     Random rand = new Random();
     // 10-15 = (5) + 11
     this.healValue = rand.nextInt(5) + 11;
-    if (p.getHealth() + healValue > p.getMaxHealth()) {
-      System.out.println(p.getName() + " healed to max health");
-      p.setHealth(p.getMaxHealth());
-      return;
+    if (healCount > 3) {
+      return "You cannot heal! (out of turns)";
     }
-    System.out.println(p.getName() + " healed up by " + healValue);
-    p.addHealth(healValue);
-  }
-
-  public void useItem(Pokemon p, String choice) {
-    if (choice.toLowerCase().equals("heal")) {
-      useHeal(p);
-    }
-    else if (choice.toLowerCase().equals("revive")) {
-      revive(p);
+    else if (p.getHealth() == p.getMaxHealth()) {
+      return "Your health is at max dummy";
     }
     else {
-      System.out.println("Invalid item, sucks man.");
+      if (p.getHealth() + healValue > p.getMaxHealth()) {
+        p.setHealth(p.getMaxHealth());
+        healCount++;
+        return p.getName() + " healed to max health";
+      }
+      p.addHealth(healValue);
+      healCount++;
+      return p.getName() + " healed up by " + healValue;
     }
   }
 
-  public void revive(Pokemon p) {
-    if (p.getHealth() == 0) {
-      if (p.getRevives() < 1) {
-        System.out.println(p.getName() + " has been restored!");
+  public String revive(Pokemon p) {
+    if (canRevive) {
+      if (p.getHealth() == 0) {
         p.reviving();
+        canRevive = false;
+        return p.getName() + " has been restored!";
       }
       else {
-        System.out.println("You cannot revive! (Revived too many)");
+        return "Revive only works if Pokemon is at health 0";
       }
     }
-    else {
-      System.out.println("Revive only works if Pokemon is at health 0");
-    }
+    return "You cannot heal anymore!";
   }
 
   public boolean checkValidItem(String item) {
@@ -56,5 +80,4 @@ public class Item {
     System.out.println("Heal (10 - 15 hp)");
     System.out.println("Revive (1 per Pokemon)");
   }
-
 }

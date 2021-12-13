@@ -10,6 +10,8 @@ public class Main {
   JFrame frame = new JFrame();
   Player p1 = new Player("Player 1");
   Player p2 = new Player("Player 2");
+  Item p1Items = new Item(p1);
+  Item p2Items = new Item(p2);
   Container con = frame.getContentPane();
   final int WIDTH_PANEL = 800;
   final int HEIGHT_PANEL = 700;
@@ -32,8 +34,7 @@ public class Main {
   public Main(boolean ex) {
 
     try {
-      font = Font.createFont(Font.TRUETYPE_FONT, new File("assets/font.ttf")).deriveFont(28f);
-    } catch (IOException | FontFormatException e) {}
+      font = Font.createFont(Font.TRUETYPE_FONT, new File("assets/font.ttf")).deriveFont(28f); } catch (IOException | FontFormatException e) {}
 
     if (ex == true) {
       try {
@@ -159,7 +160,7 @@ public class Main {
     menuPanel.add(runButton, Integer.valueOf(layerPos.size()-1));
     layerPos.add(i);
     
-    // Button Listener for Fight Button (Completed)
+    // Button Listener for Fight Button (Completed with bugs)
     fightButton.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent evt) {
         if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
@@ -243,13 +244,16 @@ public class Main {
                   p1Move3.setVisible(false);
                   menuLabel.setIcon(new ImageIcon("assets/ui/regular_menu.png"));
                   String attackMessage = p1.attack(p2, p1.getAttack(0));
-                  JLabel attkMsgLabel = newText(attackMessage, 80, 550, 600, 40);
+                  JLabel attkMsgLabel = newText(attackMessage, 80, 550, 600, 100);
+                  attkMsgLabel.setVerticalAlignment(JLabel.TOP);
                   menuPanel.add(attkMsgLabel, Integer.valueOf(layerPos.size()-1));
                   p2PokemonHealth.setText(p2.getHealthBattle());
                   menuPanel.addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseClicked(MouseEvent e2) {
                       try {
                         menuPanel.setVisible(false);
+                        confirmNextRound(ply1, p1);
+                        confirmNextRound(ply2, p2);
                         JLayeredPane menu = mainBattleMenu(p2, p1, ply2, ply1);
                         con.add(menu);
                       } catch (IOException e1) {
@@ -287,13 +291,16 @@ public class Main {
                   p1Move3.setVisible(false);
                   menuLabel.setIcon(new ImageIcon("assets/ui/regular_menu.png"));
                   String attackMessage = p1.attack(p2, p1.getAttack(1));
-                  JLabel attkMsgLabel = newText(attackMessage, 80, 550, 600, 40);
+                  JLabel attkMsgLabel = newText(attackMessage, 80, 550, 600, 100);
+                  attkMsgLabel.setVerticalAlignment(JLabel.TOP);
                   menuPanel.add(attkMsgLabel, Integer.valueOf(layerPos.size()-1));
                   p2PokemonHealth.setText(p2.getHealthBattle());
                   menuPanel.addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseClicked(MouseEvent e2) {
                       try {
                         menuPanel.setVisible(false);
+                        confirmNextRound(ply1, p1);
+                        confirmNextRound(ply2, p2);
                         JLayeredPane menu = mainBattleMenu(p2, p1, ply2, ply1);
                         con.add(menu);
                       } catch (IOException e1) {
@@ -332,13 +339,16 @@ public class Main {
                   p1Move3.setVisible(false);
                   menuLabel.setIcon(new ImageIcon("assets/ui/regular_menu.png"));
                   String attackMessage = p1.attack(p2, p1.getAttack(2));
-                  JLabel attkMsgLabel = newText(attackMessage, 80, 550, 600, 40);
+                  JLabel attkMsgLabel = newText(attackMessage, 80, 550, 600, 100);
+                  attkMsgLabel.setVerticalAlignment(JLabel.TOP);
                   menuPanel.add(attkMsgLabel, Integer.valueOf(layerPos.size()-1));
                   p2PokemonHealth.setText(p2.getHealthBattle());
                   menuPanel.addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseClicked(MouseEvent e2) {
                       try {
                         menuPanel.setVisible(false);
+                        confirmNextRound(ply1, p1);
+                        confirmNextRound(ply2, p2);
                         JLayeredPane menu = mainBattleMenu(p2, p1, ply2, ply1);
                         con.add(menu);
                       } catch (IOException e1) {
@@ -357,16 +367,365 @@ public class Main {
     itemButton.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent evt) {
         if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+          // Set Visibility for previous buttons off and changing menu
           fightButton.setVisible(false);
           itemButton.setVisible(false);
           pkmnButton.setVisible(false);
           runButton.setVisible(false);
           menuLabel.setIcon(new ImageIcon("assets/ui/attack_list.png"));
           menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+          layerPos.add(i);
+
+          // Heal Button
+          JButton healButton = newButton("Heal", 200, 500, 500, 40);
+          healButton.setHorizontalAlignment(SwingConstants.LEFT);
+          menuPanel.add(healButton, Integer.valueOf(layerPos.size()-1));
+          layerPos.add(i);
+
+          // Revive Button
+          JButton reviveButton = newButton("Revive", 200, 550, 500, 40);
+          reviveButton.setHorizontalAlignment(SwingConstants.LEFT);
+          menuPanel.add(reviveButton, Integer.valueOf(layerPos.size()-1));
+          layerPos.add(i);
+        
+          // Heal Text 1
+          JLabel healText = newText("HEAL", 60, 350, 350, 50);
+          menuPanel.add(healText, Integer.valueOf(layerPos.size()-1));
+          layerPos.add(i);
+          healText.setVisible(false);
+
+          // Revive Text 2
+          JLabel reviveText = newText("REVIVE", 60, 350, 350, 50);
+          menuPanel.add(reviveText, Integer.valueOf(layerPos.size()-1));
+          layerPos.add(i);
+          reviveText.setVisible(false);
+
+          // Heal Count Text
+          JLabel healCountText = newText(p1Items.getCountHeal(), 60, 400, 350, 50);
+          menuPanel.add(healCountText, Integer.valueOf(layerPos.size()-1));
+          layerPos.add(i);
+          healCountText.setVisible(false);
+
+          // Revive Count Text
+          JLabel reviveCountText = newText(p1Items.getReviveStatus(), 60, 400, 350, 50);
+          menuPanel.add(reviveCountText, Integer.valueOf(layerPos.size()-1));
+          layerPos.add(i);
+          reviveCountText.setVisible(false);
+
+          // Heal Button listener
+          healButton.addMouseListener( new MouseAdapter() {
+            public void mouseClicked( MouseEvent evt){
+              if (evt.getClickCount() == 1 && evt.getButton() == MouseEvent.BUTTON1){
+                healText.setVisible(true);
+                healCountText.setVisible(true);
+                reviveText.setVisible(false);
+                reviveCountText.setVisible(false);
+              }
+              else if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1){
+                healText.setVisible(false);
+                healCountText.setVisible(false);
+                reviveText.setVisible(false);
+                reviveCountText.setVisible(false);
+                healButton.setVisible(false);
+                reviveButton.setVisible(false);
+                menuLabel.setIcon(new ImageIcon("assets/ui/pokemon_selection_battle.png"));
+                menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                // All Pokemon Buttons
+                JButton pokemonButton1 = newButton(ply1.getBackpack().get(0).getNameBattle(), 285, 200, 500, 40);
+                pokemonButton1.setHorizontalAlignment(SwingConstants.LEFT);
+                JButton pokemonButton2 = newButton(ply1.getBackpack().get(1).getNameBattle(), 285, 200+75, 500, 40);
+                pokemonButton2.setHorizontalAlignment(SwingConstants.LEFT);
+                JButton pokemonButton3 = newButton(ply1.getBackpack().get(2).getNameBattle(), 285, 200+75+75, 500, 40);
+                pokemonButton3.setHorizontalAlignment(SwingConstants.LEFT);
+                menuPanel.add(pokemonButton1, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                menuPanel.add(pokemonButton2, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                menuPanel.add(pokemonButton3, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                // Dialog text
+                JLabel msgLabel = newText("Select a Pokemon", 80, 550, 600, 100);
+                msgLabel.setVerticalAlignment(JLabel.TOP);
+                menuPanel.add(msgLabel, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                pokemonButton1.addMouseListener(new MouseAdapter(){
+                  public void mouseClicked(MouseEvent e){
+                    if (e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON1) {
+                      msgLabel.setText(ply1.getBackpack().get(0).getName() + " is selected");
+                      menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                    }
+                    if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+                      Pokemon pokemonUsingHeal = ply1.getBackpack().get(0);
+                      pokemonButton1.setVisible(false);
+                      pokemonButton2.setVisible(false);
+                      pokemonButton3.setVisible(false);
+                      layerPos.add(i);
+                      menuLabel.setIcon(new ImageIcon("assets/ui/regular_menu.png"));
+                      menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      String output = p1Items.useHeal(pokemonUsingHeal);
+                      msgLabel.setText(output);
+                      menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      p1PokemonHealth.setText(p1.getHealthBattle());
+                      menuPanel.setLayer(p1PokemonHealth, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      p1PokemonHealth.setText(p1.getHealthBattle());
+                      menuPanel.addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e2) {
+                          menuPanel.setVisible(false); 
+                          try {
+                            confirmNextRound(ply1, p1);
+                            confirmNextRound(ply2, p2);
+                            con.add(mainBattleMenu(p2, p1, ply2, ply1));
+                          } catch (IOException e) {
+                            e.printStackTrace();
+                          }
+                        }
+                      });
+                    }
+                  }
+                });
+                pokemonButton2.addMouseListener(new MouseAdapter(){
+                  public void mouseClicked(MouseEvent e){
+                    if (e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON1) {
+                      msgLabel.setText(ply1.getBackpack().get(1).getName() + " is selected");
+                      menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                    }
+                    if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+                      Pokemon pokemonUsingHeal = ply1.getBackpack().get(1);
+                      pokemonButton1.setVisible(false);
+                      pokemonButton2.setVisible(false);
+                      pokemonButton3.setVisible(false);
+                      layerPos.add(i);
+                      menuLabel.setIcon(new ImageIcon("assets/ui/regular_menu.png"));
+                      menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      String output = p1Items.revive(pokemonUsingHeal);
+                      msgLabel.setText(output);
+                      menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      p1PokemonHealth.setText(p1.getHealthBattle());
+                      menuPanel.setLayer(p1PokemonHealth, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      menuPanel.addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e2) {
+                          menuPanel.setVisible(false); 
+                          try {
+                            confirmNextRound(ply1, p1);
+                            confirmNextRound(ply2, p2);
+                            con.add(mainBattleMenu(p2, p1, ply2, ply1));
+                          } catch (IOException e) {
+                            e.printStackTrace();
+                          }
+                        }
+                      });
+                    }
+                  }
+                });
+                pokemonButton3.addMouseListener(new MouseAdapter(){
+                  public void mouseClicked(MouseEvent e){
+                    if (e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON1) {
+                      msgLabel.setText(ply1.getBackpack().get(2).getName() + " is selected");
+                      menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                    }
+                    if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+                      Pokemon pokemonUsingHeal = ply1.getBackpack().get(2);
+                      pokemonButton1.setVisible(false);
+                      pokemonButton2.setVisible(false);
+                      pokemonButton3.setVisible(false);
+                      layerPos.add(i);
+                      menuLabel.setIcon(new ImageIcon("assets/ui/regular_menu.png"));
+                      menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      String output = p1Items.useHeal(pokemonUsingHeal);
+                      msgLabel.setText(output);
+                      menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      p1PokemonHealth.setText(p1.getHealthBattle());
+                      menuPanel.setLayer(p1PokemonHealth, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      menuPanel.addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e2) {
+                          menuPanel.setVisible(false); 
+                          try {
+                            confirmNextRound(ply1, p1);
+                            confirmNextRound(ply2, p2);
+                            con.add(mainBattleMenu(p2, p1, ply2, ply1));
+                          } catch (IOException e) {
+                            e.printStackTrace();
+                          }
+                        }
+                      });
+                    }
+                  }
+                });
+              }
+            }
+          });
+
+          // Revive Button listener
+          reviveButton.addMouseListener( new MouseAdapter() {
+            public void mouseClicked( MouseEvent evt) {
+              if (evt.getClickCount() == 1 && evt.getButton() == MouseEvent.BUTTON1){
+                healText.setVisible(false);
+                healCountText.setVisible(false);
+                reviveText.setVisible(true);
+                reviveCountText.setVisible(true);
+              }
+              else if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1){
+                healText.setVisible(false);
+                healCountText.setVisible(false);
+                reviveText.setVisible(false);
+                reviveCountText.setVisible(false);
+                healButton.setVisible(false);
+                reviveButton.setVisible(false);
+                menuLabel.setIcon(new ImageIcon("assets/ui/pokemon_selection_battle.png"));
+                menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                // All Pokemon Buttons
+                JButton pokemonButton1 = newButton(ply1.getBackpack().get(0).getNameBattle(), 285, 200, 500, 40);
+                pokemonButton1.setHorizontalAlignment(SwingConstants.LEFT);
+                JButton pokemonButton2 = newButton(ply1.getBackpack().get(1).getNameBattle(), 285, 200+75, 500, 40);
+                pokemonButton2.setHorizontalAlignment(SwingConstants.LEFT);
+                JButton pokemonButton3 = newButton(ply1.getBackpack().get(2).getNameBattle(), 285, 200+75+75, 500, 40);
+                pokemonButton3.setHorizontalAlignment(SwingConstants.LEFT);
+                menuPanel.add(pokemonButton1, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                menuPanel.add(pokemonButton2, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                menuPanel.add(pokemonButton3, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                // Dialog text
+                JLabel msgLabel = newText("Select a Pokemon", 80, 550, 600, 100);
+                msgLabel.setVerticalAlignment(JLabel.TOP);
+                menuPanel.add(msgLabel, Integer.valueOf(layerPos.size()-1));
+                layerPos.add(i);
+                pokemonButton1.addMouseListener(new MouseAdapter(){
+                  public void mouseClicked(MouseEvent e){
+                    if (e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON1) {
+                      msgLabel.setText(ply1.getBackpack().get(0).getName() + " is selected");
+                      menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                    }
+                    if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+                      Pokemon pokemonUsingHeal = ply1.getBackpack().get(0);
+                      pokemonButton1.setVisible(false);
+                      pokemonButton2.setVisible(false);
+                      pokemonButton3.setVisible(false);
+                      layerPos.add(i);
+                      menuLabel.setIcon(new ImageIcon("assets/ui/regular_menu.png"));
+                      menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      String output = p1Items.revive(pokemonUsingHeal);
+                      msgLabel.setText(output);
+                      menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      p1PokemonHealth.setText(p1.getHealthBattle());
+                      menuPanel.setLayer(p1PokemonHealth, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      menuPanel.addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e2) {
+                          menuPanel.setVisible(false); 
+                          try {
+                            confirmNextRound(ply1, p1);
+                            confirmNextRound(ply2, p2);
+                            con.add(mainBattleMenu(p2, p1, ply2, ply1));
+                          } catch (IOException e) {
+                            e.printStackTrace();
+                          }
+                        }
+                      });
+                    }
+                  }
+                });
+                pokemonButton2.addMouseListener(new MouseAdapter(){
+                  public void mouseClicked(MouseEvent e){
+                    if (e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON1) {
+                      msgLabel.setText(ply1.getBackpack().get(1).getName() + " is selected");
+                      menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                    }
+                    if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+                      Pokemon pokemonUsingHeal = ply1.getBackpack().get(1);
+                      pokemonButton1.setVisible(false);
+                      pokemonButton2.setVisible(false);
+                      pokemonButton3.setVisible(false);
+                      layerPos.add(i);
+                      menuLabel.setIcon(new ImageIcon("assets/ui/regular_menu.png"));
+                      menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      String output = p1Items.revive(pokemonUsingHeal);
+                      msgLabel.setText(output);
+                      menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      p1PokemonHealth.setText(p1.getHealthBattle());
+                      menuPanel.setLayer(p1PokemonHealth, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      menuPanel.addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e2) {
+                          menuPanel.setVisible(false); 
+                          try {
+                            confirmNextRound(ply1, p1);
+                            confirmNextRound(ply2, p2);
+                            con.add(mainBattleMenu(p2, p1, ply2, ply1));
+                          } catch (IOException e) {
+                            e.printStackTrace();
+                          }
+                        }
+                      });
+                    }
+                  }
+                });
+                pokemonButton3.addMouseListener(new MouseAdapter(){
+                  public void mouseClicked(MouseEvent e){
+                    if (e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON1) {
+                      msgLabel.setText(ply1.getBackpack().get(2).getName() + " is selected");
+                      menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                    }
+                    if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+                      Pokemon pokemonUsingHeal = ply1.getBackpack().get(2);
+                      pokemonButton1.setVisible(false);
+                      pokemonButton2.setVisible(false);
+                      pokemonButton3.setVisible(false);
+                      layerPos.add(i);
+                      menuLabel.setIcon(new ImageIcon("assets/ui/regular_menu.png"));
+                      menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      String output = p1Items.revive(pokemonUsingHeal);
+                      msgLabel.setText(output);
+                      menuPanel.setLayer(msgLabel, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      p1PokemonHealth.setText(p1.getHealthBattle());
+                      menuPanel.setLayer(p1PokemonHealth, Integer.valueOf(layerPos.size()-1));
+                      layerPos.add(i);
+                      menuPanel.addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e2) {
+                          menuPanel.setVisible(false); 
+                          try {
+                            confirmNextRound(ply1, p1);
+                            confirmNextRound(ply2, p2);
+                            con.add(mainBattleMenu(p2, p1, ply2, ply1));
+                          } catch (IOException e) {
+                            e.printStackTrace();
+                          }
+                        }
+                      });
+                    }
+                  }
+                });
+              }
+            }
+          });
         }
       } 
     });
-    // Button Listener for Pokemon Button 
+    // Button Listener for Pokemon Button (Completed with bugs)
     pkmnButton.addMouseListener(new MouseAdapter() { 
       public void mouseClicked(MouseEvent evt) { 
         if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
@@ -392,7 +751,8 @@ public class Main {
           menuPanel.add(pokemonButton3, Integer.valueOf(layerPos.size()-1));
           layerPos.add(i);
           // Dialog text
-          JLabel msgLabel = newText("Select a Pokemon", 80, 550, 600, 40);
+          JLabel msgLabel = newText("Select a Pokemon", 80, 550, 600, 100);
+          msgLabel.setVerticalAlignment(JLabel.TOP);
           menuPanel.add(msgLabel, Integer.valueOf(layerPos.size()-1));
           layerPos.add(i);
           pokemonButton1.addMouseListener(new MouseAdapter(){
@@ -426,7 +786,9 @@ public class Main {
                   public void mouseClicked(MouseEvent e2) {
                     menuPanel.setVisible(false); 
                     try {
-                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(0), ply1, ply2));
+                      confirmNextRound(ply1, ply1.getBackpack().get(0));
+                      confirmNextRound(ply2, p2);
+                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(ply1.getBackpack().size()-1), ply1, ply2));
                     } catch (IOException e) {
                       e.printStackTrace();
                     }
@@ -466,7 +828,9 @@ public class Main {
                   public void mouseClicked(MouseEvent e2) {
                     menuPanel.setVisible(false); 
                     try {
-                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(1), ply1, ply2));
+                      confirmNextRound(ply1, ply1.getBackpack().get(1));
+                      confirmNextRound(ply2, p2);
+                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(ply1.getBackpack().size()-1), ply1, ply2));
                     } catch (IOException e) {
                       e.printStackTrace();
                     }
@@ -506,7 +870,9 @@ public class Main {
                   public void mouseClicked(MouseEvent e2) {
                     menuPanel.setVisible(false); 
                     try {
-                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(2), ply1, ply2));
+                      confirmNextRound(ply1, ply1.getBackpack().get(2));
+                      confirmNextRound(ply2, p2);
+                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(ply1.getBackpack().size()-1), ply1, ply2));
                     } catch (IOException e) {
                       e.printStackTrace();
                     }
@@ -529,7 +895,8 @@ public class Main {
           menuLabel.setIcon(new ImageIcon("assets/ui/regular_menu.png"));
           menuPanel.setLayer(menuLabel, Integer.valueOf(layerPos.size()-1));
           layerPos.add(i);
-          JLabel msgLabel = newText("You ran away!", 80, 550, 600, 40);
+          JLabel msgLabel = newText("You ran away!", 80, 550, 600, 100);
+          msgLabel.setVerticalAlignment(JLabel.TOP);
           menuPanel.add(msgLabel, Integer.valueOf(layerPos.size()-1));
           layerPos.add(i);
           menuPanel.addMouseListener(new MouseAdapter() {
@@ -540,7 +907,6 @@ public class Main {
         }
       } 
     });
-
     return menuPanel;
   }
 
@@ -550,6 +916,16 @@ public class Main {
     label.setBounds(x,y,width, height);
     label.setForeground(Color.black);
     return label;
+  }
+
+  public void confirmNextRound(Player player, Pokemon pokemon) {
+    for (int i = 0; i < player.getBackpack().size(); i++) {
+      if (player.getBackpack().get(i).getName().equals(pokemon.getName())) {
+        player.getBackpack().remove(i);
+        break;
+      }
+    }
+    player.getBackpack().add(pokemon);
   }
 
   public JButton newButton(String text, int x, int y, int width, int height) {
@@ -564,4 +940,3 @@ public class Main {
     return button;
   }
 }
-  
