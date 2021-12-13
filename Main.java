@@ -34,7 +34,8 @@ public class Main {
   public Main(boolean ex) {
 
     try {
-      font = Font.createFont(Font.TRUETYPE_FONT, new File("assets/font.ttf")).deriveFont(28f); } catch (IOException | FontFormatException e) {}
+      font = Font.createFont(Font.TRUETYPE_FONT, new File("assets/font.ttf")).deriveFont(28f); 
+    } catch (IOException | FontFormatException e) {}
 
     if (ex == true) {
       try {
@@ -132,17 +133,17 @@ public class Main {
 
     // Player 1 Pokemon Name and Health
     JLabel p1PokemonName = newText(p1Pokemon.getName(), 410, 355, 350, 50);
-    JLabel p1PokemonHealth = newText(p1Pokemon.getHealthBattle(), 410, 400, 350, 50);
     menuPanel.add(p1PokemonName, Integer.valueOf(layerPos.size()-1));
     layerPos.add(i);
+    JLabel p1PokemonHealth = newText(p1Pokemon.getHealthBattle(), 410, 400, 350, 50);
     menuPanel.add(p1PokemonHealth, Integer.valueOf(layerPos.size()-1));
     layerPos.add(i);
 
     // Player 2 Pokemon Name and Health
     JLabel p2PokemonName = newText(p2Pokemon.getName(), 75, 45, 350, 50);
-    JLabel p2PokemonHealth = newText(p2Pokemon.getHealthBattle(), 75, 90, 350, 50);
     menuPanel.add(p2PokemonName, Integer.valueOf(layerPos.size()-1));
     layerPos.add(i);
+    JLabel p2PokemonHealth = newText(p2Pokemon.getHealthBattle(), 75, 90, 350, 50);
     menuPanel.add(p2PokemonHealth, Integer.valueOf(layerPos.size()-1));
     layerPos.add(i);
 
@@ -163,7 +164,7 @@ public class Main {
     // Button Listener for Fight Button (Completed with bugs)
     fightButton.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent evt) {
-        if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+        if (evt.getClickCount() == 1 && evt.getButton() == MouseEvent.BUTTON1) {
           // Set Visibility for previous buttons off and changing menu
           fightButton.setVisible(false);
           itemButton.setVisible(false);
@@ -252,8 +253,6 @@ public class Main {
                     public void mouseClicked(MouseEvent e2) {
                       try {
                         menuPanel.setVisible(false);
-                        confirmNextRound(ply1, p1);
-                        confirmNextRound(ply2, p2);
                         JLayeredPane menu = mainBattleMenu(p2, p1, ply2, ply1);
                         con.add(menu);
                       } catch (IOException e1) {
@@ -299,8 +298,6 @@ public class Main {
                     public void mouseClicked(MouseEvent e2) {
                       try {
                         menuPanel.setVisible(false);
-                        confirmNextRound(ply1, p1);
-                        confirmNextRound(ply2, p2);
                         JLayeredPane menu = mainBattleMenu(p2, p1, ply2, ply1);
                         con.add(menu);
                       } catch (IOException e1) {
@@ -347,8 +344,6 @@ public class Main {
                     public void mouseClicked(MouseEvent e2) {
                       try {
                         menuPanel.setVisible(false);
-                        confirmNextRound(ply1, p1);
-                        confirmNextRound(ply2, p2);
                         JLayeredPane menu = mainBattleMenu(p2, p1, ply2, ply1);
                         con.add(menu);
                       } catch (IOException e1) {
@@ -366,7 +361,7 @@ public class Main {
     // Button Listener for Item Button
     itemButton.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent evt) {
-        if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+        if (evt.getClickCount() == 1 && evt.getButton() == MouseEvent.BUTTON1) {
           // Set Visibility for previous buttons off and changing menu
           fightButton.setVisible(false);
           itemButton.setVisible(false);
@@ -477,8 +472,6 @@ public class Main {
                         public void mouseClicked(MouseEvent e2) {
                           menuPanel.setVisible(false); 
                           try {
-                            confirmNextRound(ply1, p1);
-                            confirmNextRound(ply2, p2);
                             con.add(mainBattleMenu(p2, p1, ply2, ply1));
                           } catch (IOException e) {
                             e.printStackTrace();
@@ -515,8 +508,6 @@ public class Main {
                         public void mouseClicked(MouseEvent e2) {
                           menuPanel.setVisible(false); 
                           try {
-                            confirmNextRound(ply1, p1);
-                            confirmNextRound(ply2, p2);
                             con.add(mainBattleMenu(p2, p1, ply2, ply1));
                           } catch (IOException e) {
                             e.printStackTrace();
@@ -553,8 +544,6 @@ public class Main {
                         public void mouseClicked(MouseEvent e2) {
                           menuPanel.setVisible(false); 
                           try {
-                            confirmNextRound(ply1, p1);
-                            confirmNextRound(ply2, p2);
                             con.add(mainBattleMenu(p2, p1, ply2, ply1));
                           } catch (IOException e) {
                             e.printStackTrace();
@@ -632,8 +621,6 @@ public class Main {
                         public void mouseClicked(MouseEvent e2) {
                           menuPanel.setVisible(false); 
                           try {
-                            confirmNextRound(ply1, p1);
-                            confirmNextRound(ply2, p2);
                             con.add(mainBattleMenu(p2, p1, ply2, ply1));
                           } catch (IOException e) {
                             e.printStackTrace();
@@ -670,8 +657,6 @@ public class Main {
                         public void mouseClicked(MouseEvent e2) {
                           menuPanel.setVisible(false); 
                           try {
-                            confirmNextRound(ply1, p1);
-                            confirmNextRound(ply2, p2);
                             con.add(mainBattleMenu(p2, p1, ply2, ply1));
                           } catch (IOException e) {
                             e.printStackTrace();
@@ -708,8 +693,6 @@ public class Main {
                         public void mouseClicked(MouseEvent e2) {
                           menuPanel.setVisible(false); 
                           try {
-                            confirmNextRound(ply1, p1);
-                            confirmNextRound(ply2, p2);
                             con.add(mainBattleMenu(p2, p1, ply2, ply1));
                           } catch (IOException e) {
                             e.printStackTrace();
@@ -728,7 +711,7 @@ public class Main {
     // Button Listener for Pokemon Button (Completed with bugs)
     pkmnButton.addMouseListener(new MouseAdapter() { 
       public void mouseClicked(MouseEvent evt) { 
-        if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+        if (evt.getClickCount() == 1 && evt.getButton() == MouseEvent.BUTTON1) {
           // Hidding all other buttons and changing menu
           fightButton.setVisible(false);
           itemButton.setVisible(false);
@@ -786,9 +769,7 @@ public class Main {
                   public void mouseClicked(MouseEvent e2) {
                     menuPanel.setVisible(false); 
                     try {
-                      confirmNextRound(ply1, ply1.getBackpack().get(0));
-                      confirmNextRound(ply2, p2);
-                      con.add(mainBattleMenu(p2, p1, ply1, ply2));
+                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(0), ply2, ply1));
                     } catch (IOException e) {
                       e.printStackTrace();
                     }
@@ -828,9 +809,7 @@ public class Main {
                   public void mouseClicked(MouseEvent e2) {
                     menuPanel.setVisible(false); 
                     try {
-                      confirmNextRound(ply1, ply1.getBackpack().get(1));
-                      confirmNextRound(ply2, p2);
-                      con.add(mainBattleMenu(p2, p1, ply1, ply2));
+                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(1), ply2, ply1));
                     } catch (IOException e) {
                       e.printStackTrace();
                     }
@@ -870,9 +849,7 @@ public class Main {
                   public void mouseClicked(MouseEvent e2) {
                     menuPanel.setVisible(false); 
                     try {
-                      confirmNextRound(ply1, ply1.getBackpack().get(2));
-                      confirmNextRound(ply2, p2);
-                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(2), ply1, ply2));
+                      con.add(mainBattleMenu(p2, ply1.getBackpack().get(2), ply2, ply1));
                     } catch (IOException e) {
                       e.printStackTrace();
                     }
@@ -887,7 +864,7 @@ public class Main {
     // Button Listener for Run Button (Completed)
     runButton.addMouseListener(new MouseAdapter() { 
       public void mouseClicked(MouseEvent evt) {
-        if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+        if (evt.getClickCount() == 1 && evt.getButton() == MouseEvent.BUTTON1) {
           fightButton.setVisible(false);
           itemButton.setVisible(false);
           pkmnButton.setVisible(false);
@@ -921,11 +898,10 @@ public class Main {
   public void confirmNextRound(Player player, Pokemon pokemon) {
     for (int i = 0; i < player.getBackpack().size(); i++) {
       if (player.getBackpack().get(i).getName().equals(pokemon.getName())) {
-        player.getBackpack().remove(i);
-        break;
+        player.getBackpack().set(i, pokemon);
+        return;
       }
     }
-    player.getBackpack().add(pokemon);
   }
 
   public JButton newButton(String text, int x, int y, int width, int height) {
