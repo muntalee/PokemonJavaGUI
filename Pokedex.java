@@ -130,6 +130,7 @@ public class Pokedex {
     selection.setBounds(0,0, WIDTH_PANEL, HEIGHT_PANEL);
     selection.setBackground(Color.white);
     selection.setLayout(null);
+    m.getFrame().setTitle(p.getName() + "'s Turn");
 
     // Background
     JLabel wp = new JLabel(new ImageIcon("assets/ui/pokemon_selection.png"));
@@ -137,7 +138,7 @@ public class Pokedex {
     selection.add(wp, Integer.valueOf(0));
 
     // Player name on Top
-    JLabel playerName = newPlayerNameDisplay(p.getName(), 320, 35, 296, 116);
+    JLabel playerName = newPlayerNameDisplay("Select 3 Pokemon",225, 75, 600, 50);
     selection.add(playerName, Integer.valueOf(1));
 
     // 1. PIKACHU

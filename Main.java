@@ -89,9 +89,16 @@ public class Main {
     con.add(startNewBattle);
   }
 
+  public JFrame getFrame() {
+    return frame;
+  }
+
   public JLayeredPane mainBattleMenu(Pokemon p1,Pokemon p2, Player ply1, Player ply2) throws IOException {
+    if (p1.getHealth() <= 0) {
+
+    }
     // Show who's turn it is with the window title
-    frame.setTitle(p1.getName() + "'s Turn");
+    frame.setTitle(ply1.getName() + "'s Turn");
     // Pokemons
     Pokemon p1Pokemon = p1;
     Pokemon p2Pokemon = p2;

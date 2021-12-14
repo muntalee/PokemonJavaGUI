@@ -63,7 +63,7 @@ public class Item {
         return p.getName() + " has been restored!";
       }
       else {
-        return "Revive only works if Pokemon is at health 0";
+        return "Cannot Revive! Not at 0hp";
       }
     }
     return "You cannot heal anymore!";
