@@ -32,6 +32,17 @@ public class Item {
   public int getHealCountVariable() {
     return healCount;
   }
+  
+  public boolean canRevive() {
+    return canRevive;
+  }
+
+  public boolean canHeal() {
+    if (healCount > 3) {
+      return false;
+    }
+    return true;
+  }
 
   public String useHeal(Pokemon p) {
     Random rand = new Random();

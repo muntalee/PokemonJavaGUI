@@ -101,7 +101,6 @@ public class Pokemon {
         p.setHealth(0);
       }
       attack.decreasePP();
-      System.out.println("Attacker's health: " + health + " Enemy's health: " + p.getHealth());
       return name + " dealt " + (int)dmgAgainstPokemon + " damage!";
     }
     return name + "'s attack missed!";
