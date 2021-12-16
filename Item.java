@@ -58,7 +58,7 @@ public class Item {
       if (p.getHealth() + healValue > p.getMaxHealth()) {
         p.setHealth(p.getMaxHealth());
         healCount++;
-        return p.getName() + " healed to max health";
+        return p.getName() + " healed to max!";
       }
       p.addHealth(healValue);
       healCount++;
