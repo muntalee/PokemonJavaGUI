@@ -97,6 +97,7 @@ public class Main {
     // Show who's turn it is with the window title
     frame.setTitle(ply1.getName() + "'s Turn");
     // Pokemons
+    Pokedex pokedex = new Pokedex();
     Pokemon p1Pokemon = p1;
     Pokemon p2Pokemon = p2;
     ArrayList<Integer> layerPos = new ArrayList<Integer>();
@@ -122,14 +123,14 @@ public class Main {
     layerPos.add(i);
 
     // Player 1 Pokemon
-    String p1PokemonFile = "assets/player/" + p1Pokemon.getName().toLowerCase() + ".png";
+    String p1PokemonFile = "assets/player/" + pokedex.getPokemonIndex(p1) + ".png";
     JLabel p1PokemonLabel = new JLabel(new ImageIcon(p1PokemonFile));
     p1PokemonLabel.setBounds(40,150, POKE_PLA_DIM, POKE_PLA_DIM);
     menuPanel.add(p1PokemonLabel, Integer.valueOf(layerPos.size()-1));
     layerPos.add(i);
 
     // Player 2 Pokemon
-    String p2PokemonFile = "assets/opponent/" + p2Pokemon.getName().toLowerCase() + ".png";
+    String p2PokemonFile = "assets/opponent/" + pokedex.getPokemonIndex(p2) + ".png";
     JLabel p2PokemonLabel = new JLabel(new ImageIcon(p2PokemonFile));
     p2PokemonLabel.setBounds(523,10, POKE_OPP_DIM, POKE_OPP_DIM);
     menuPanel.add(p2PokemonLabel, Integer.valueOf(layerPos.size()-1));
@@ -214,7 +215,7 @@ public class Main {
         }
       });
     }
-    // Check if Pokemon is dead
+    // Check if Pokemon is dead (kinda buggy but works)
     else if (p1.getHealth() <= 0) {
       fightButton.setVisible(false);
       itemButton.setVisible(false);
@@ -1183,7 +1184,7 @@ public class Main {
               }
               if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
                 backButton.setVisible(false);
-                String newPokemonString = "assets/player/" + ply1.getBackpack().get(0).getName().toLowerCase() + ".png";
+                String newPokemonString = "assets/player/" + pokedex.getPokemonIndex(ply1.getBackpack().get(0)) + ".png";
                 p1PokemonLabel.setIcon(new ImageIcon(newPokemonString));
                 p1PokemonHealth.setText(ply1.getBackpack().get(0).getHealthBattle());
                 p1PokemonName.setText(ply1.getBackpack().get(0).getName());
@@ -1225,7 +1226,7 @@ public class Main {
               }
               if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
                 backButton.setVisible(false);
-                String newPokemonString = "assets/player/" + ply1.getBackpack().get(1).getName().toLowerCase() + ".png";
+                String newPokemonString = "assets/player/" + pokedex.getPokemonIndex(ply1.getBackpack().get(1)) + ".png";
                 p1PokemonLabel.setIcon(new ImageIcon(newPokemonString));
                 p1PokemonHealth.setText(ply1.getBackpack().get(1).getHealthBattle());
                 p1PokemonName.setText(ply1.getBackpack().get(1).getName());
@@ -1267,7 +1268,7 @@ public class Main {
               }
               if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
                 backButton.setVisible(false);
-                String newPokemonString = "assets/player/" + ply1.getBackpack().get(2).getName().toLowerCase() + ".png";
+                String newPokemonString = "assets/player/" + pokedex.getPokemonIndex(ply1.getBackpack().get(2)) + ".png";
                 p1PokemonLabel.setIcon(new ImageIcon(newPokemonString));
                 p1PokemonHealth.setText(ply1.getBackpack().get(2).getHealthBattle());
                 p1PokemonName.setText(ply1.getBackpack().get(2).getName());
@@ -1329,22 +1330,12 @@ public class Main {
     });
     return menuPanel;
   }
-
   public JLabel newText(String text, int x, int y, int width, int height) {
     JLabel label = new JLabel(text);
     label.setFont(font);
     label.setBounds(x,y,width, height);
     label.setForeground(Color.black);
     return label;
-  }
-
-  public void confirmNextRound(Player player, Pokemon pokemon) {
-    for (int i = 0; i < player.getBackpack().size(); i++) {
-      if (player.getBackpack().get(i).getName().equals(pokemon.getName())) {
-        player.getBackpack().set(i, pokemon);
-        return;
-      }
-    }
   }
 
   public JButton newButton(String text, int x, int y, int width, int height) {

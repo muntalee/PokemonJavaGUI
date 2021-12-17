@@ -1,0 +1,149 @@
+PKMN TYPE HP DMG DEF
+Bulbasaur Grass 45 49 49
+Tackle 35 40 100
+Vine-Whip 25 45 100
+Razor-Leaf 25 55 95
+Charmander Fire 39 52 43
+Scratch 35 40 100
+Fire-Fang 15 65 100
+Slash 20 70 100
+Squirtle Water 44 48 65
+Tackle 35 40 100
+Aqua-Tail 10 90 70
+Bite 25 60 100
+Caterpie Bug 45 30 35
+Tackle 35 40 100
+Bug-Bite 20 60 100
+Struggle 20 50 100
+Weedle Bug 40 35 30
+Poison-Sting 35 15 100
+Bug-Bite 20 60 100
+Tackle 35 40 100
+Pidgey Normal 40 45 40
+Tackle 35 40 100
+Wing-Attack 35 60 100
+Aerial-Ace 20 60 100
+Rattata Normal 30 56 35
+Tackle 35 40 100
+Quick-Attack 30 40 100
+Bite 25 60 100
+Ekans Poison 35 60 44
+Wrap 20 15 90
+Bite 25 60 100
+Poison-Sting 35 15 100
+Pikachu Electric 35 55 40
+Nuzzle 20 20 100
+Thunder-Shock 30 40 100
+Quick-Attack 30 40 100
+Nidoran(F) Poison 46 57 40
+Poison-Sting 35 15 100
+Scratch 35 40 100
+Bite 25 60 100
+Clefairy Fairy 70 45 48
+Pound 35 40 100
+Stored-Power 10 20 100
+Disarming-Voice 15 40 100
+Vulpix Fire 38 41 40
+Quick-Attack 30 40 100
+Ember 25 40 100
+Incinerate 15 60 100
+Jigglypuff Fairy 80 45 20
+Pound 35 40 100
+Covet 25 60 100
+Disarming-Voice 15 40 100
+Zubat Poison 40 45 35
+Astonish 15 30 100
+Poison-Fang 15 50 100
+Bite 25 60 100
+Oddish Grass 45 50 55
+Absorb 25 20 100
+Acid 30 40 100
+Mega-Drain 15 40 100
+Paras Bug 35 70 55
+Scratch 35 40 100
+Slash 20 70 100
+Fury-Cutter 20 40 95
+Venonat Bug 40 55 50
+Tackle 35 40 100
+Psybeam 20 65 100
+Leech-Life 10 80 100
+Diglett Ground 10 55 25
+Scratch 35 40 100
+Bulldoze 20 60 100
+Slash 20 70 100
+Meowth Normal 40 45 35
+Scratch 35 40 100
+Bite 25 60 100
+Fake-Out 10 40 100
+Psyduck Water 50 52 48
+Scratch 35 40 100
+Aqua-Tail 10 90 70
+Water-Gun 25 40 100
+Mankey Fight 40 80 35
+Covet 25 60 100
+Scratch 35 40 100
+Mud-Slap 10 20 100
+Poliwag Water 40 50 40
+Water-Gun 25 40 100
+Pound 35 40 100
+Mud-Shot 15 55 95
+Alakazam Psychic 55 50 45
+Confusion 25 50 100
+Psycho-Cut 20 70 100
+Psybeam 20 65 100
+Bellsprout Grass 50 75 35
+Vine-Whip 25 45 100
+Razor-Leaf 25 55 95
+Wrap 20 15 90
+Tentacool Water 40 40 35
+Poison-Sting 35 15 100
+Water-Gun 25 40 100
+Acid 30 40 100
+Magemite Electric 25 35 70
+Tackle 35 40 100
+Thunder-Shock 30 40 100
+Spark 20 65 100
+Seel Water 65 45 55
+Ice-Shard 30 40 100
+Aqua-Jet 20 40 100
+Aqua-Tail 10 90 70
+Shellder Water 30 65 100
+Water-Gun 25 40 100
+Tackle 35 40 100
+Ice-Shard 30 40 100
+Haunter Ghost 45 50 45
+Lick 30 30 100
+Shadow-Punch 20 60 100
+Payback 10 50 100
+Onix Rock 35 45 120
+Bind 20 15 85
+Tackle 35 40 100
+Rock-Throw 15 50 90
+Drowzee Psychic 60 48 45
+Pound 35 40 100
+Headbutt 15 70 100
+Confusion 25 50 100
+Voltorb Electric 40 30 50
+Tackle 35 40 100
+Spark 20 65 100
+Rollout 20 30 90
+Cubone Ground 50 50 95
+Headbutt 15 70 100
+False-Swipe 40 40 100
+Retaliate 5 70 100
+Lickitung Normal 90 55 75
+Lick 30 30 100
+Rollout 20 30 90
+Wrap 20 15 90
+Horsea Water 30 40 70
+Water-Gun 25 40 100
+Twister 20 40 100
+Dragon-Breath 20 60 100
+Magikarp Water 20 10 55
+Splash 15 0 100
+Tackle 35 40 100
+Flail 15 0 100
+Eevee Normal 55 55 50
+Covet 25 60 100
+Quick-Attack 30 40 100
+Double-Edge 15 70 100
